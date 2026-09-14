@@ -1,9 +1,9 @@
 //TODO: Include your multi-line comment header
 /*
-    Name: 
-    Date: 
+    Name: Caden
+    Date: 2026-9-14
     Assignment: 
-    Quarter: 
+    Quarter: 1
     Instructor: 
 */
 
