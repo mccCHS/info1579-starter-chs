@@ -34,7 +34,7 @@ const totalStudyHour = totalModules * 6;
 const dailyStudyHours = totalStudyHour / 70;
 
 // TODO: Give yourself a rest day and exclude one day out of your week. Calculate the new number of hours and set it to adjustedDailyHours. Convert the output to minutes (this formula is not provided).
-const adjustedDailyHours = dailyStudyHours * 60;
+const adjustedDailyHours = totalStudyHour / 60;
 
 // TODO: Calculate the course percent complete and the course percent remaining. Imagine you've completed 2 modules (Start Here and Module 1).
 // Formula: percent = (part / whole) * 100
@@ -49,6 +49,5 @@ display("Total Modules", totalModules);
 display("Daily Study Hours (7 days)", dailyStudyHours.toFixed(2));
 display("Daily Study Minutes (7 days)", `${(dailyStudyHours * 60).toFixed(2)} minutes`);
 display("Daily Study Hours (with rest day)", adjustedDailyHours.toFixed(2));
-display("Daily Study Minutes (with rest day)", `${(adjustedDailyHours * 60).toFixed(2)} minutes`);
 display("Percent Complete", `${percentComplete.toFixed(2)}%`);
 display("Percent Remaining", `${percentRemaining.toFixed(2)}%`);
