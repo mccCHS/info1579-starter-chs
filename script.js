@@ -52,3 +52,4 @@ display("Daily Study Hours (with rest day)", adjustedDailyHours.toFixed(2));
 display("Daily Study Minutes (with rest day)", `${(adjustedDailyHours * 60).toFixed(2)} minutes`);
 display("Percent Complete", `${percentComplete.toFixed(2)}%`);
 display("Percent Remaining", `${percentRemaining.toFixed(2)}%`);
+// test
