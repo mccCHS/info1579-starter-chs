@@ -31,10 +31,10 @@ const totalStudyHour = totalModules * 6;
 
 // TODO: Calculate the number of study hours each day. Convert the output to minutes (this formula is not provided).
 // Formula: dailyStudyHours = hoursPerWeek / 7
-const dailyStudyHours = totalStudyHour / 7;
+const dailyStudyHours = totalStudyHour / 70;
 
 // TODO: Give yourself a rest day and exclude one day out of your week. Calculate the new number of hours and set it to adjustedDailyHours. Convert the output to minutes (this formula is not provided).
-const adjustedDailyHours = dailyStudyHours * 6;
+const adjustedDailyHours = dailyStudyHours * 60;
 
 // TODO: Calculate the course percent complete and the course percent remaining. Imagine you've completed 2 modules (Start Here and Module 1).
 // Formula: percent = (part / whole) * 100
