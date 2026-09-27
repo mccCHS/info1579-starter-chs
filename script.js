@@ -20,7 +20,13 @@ const display = (label, value) =>
 // TODO: Create variables for your name (string), total number of modules for our class (number), and if you're enrolled (boolean)
 const myName = "Caden";
 const totalModules = 10;
-const isEnrolled = "no";
+const isEnrolled = false;
+const courseModules = ["Module 1", "Module 2", "Module 3", "Module 4", "Module 5", "Module 6", "Module 7", "Module 8", "Module 9", "Module 10"];
+const completedModules = prompt("Enter the number of completed modules (1-10): ");
+const completedModuleCount = Number(completedModules);
+const validEntry = Number.isInteger(completedModuleCount) && completedModuleCount >= 1 && completedModuleCount <= totalModules;
+
+
 
 // TODO: Use a template literal to output a welcome message. Use at least one ${}.
 display(`Welcome, ${myName}!`);
@@ -38,8 +44,34 @@ const adjustedDailyHours = totalStudyHour / 60;
 
 // TODO: Calculate the course percent complete and the course percent remaining. Imagine you've completed 2 modules (Start Here and Module 1).
 // Formula: percent = (part / whole) * 100
-const percentComplete = (2 / totalModules) * 100;
+const percentComplete = (completedModuleCount / totalModules) * 100;
 const percentRemaining = 100 - percentComplete;
+let courseGrade;
+
+if (percentComplete >= 90) {
+  courseGrade = "A";
+} else if (percentComplete >= 80) {
+  courseGrade = "B";
+} else if (percentComplete >= 70) {
+  courseGrade = "C";
+} else if (percentComplete >= 60) {
+  courseGrade = "D";
+} else {
+  courseGrade = "F";
+}
+
+let courseProgress;
+
+
+if (percentRemaining === 0) {
+  courseProgress = "Current Progress: Finished!";
+} else if (percentRemaining >= 1 && percentRemaining <= 24.99) {
+  courseProgress = "Current Progress: Almost Finished!";
+} else if (percentRemaining >= 25 && percentRemaining <= 74.99) {
+  courseProgress = "Current Progress: Making Progress";
+} else {
+  courseProgress = "Current Progress: Just Getting Started";
+}
 
 // DISPLAY RESULTS
 display("Welcome Message", `Welcome, ${myName}!`);
@@ -51,3 +83,46 @@ display("Daily Study Minutes (7 days)", `${(dailyStudyHours * 60).toFixed(2)} mi
 display("Daily Study Hours (with rest day)", adjustedDailyHours.toFixed(2));
 display("Percent Complete", `${percentComplete.toFixed(2)}%`);
 display("Percent Remaining", `${percentRemaining.toFixed(2)}%`);
+display("Course Progress", validEntry ? courseProgress : "Invalid entry.");
+display("Course Grade", courseGrade)
+let studyDay;
+let studyPlan;
+
+if (validEntry && completedModuleCount === totalModules) {
+  studyDay = "Complete";
+} else {
+  studyDay = prompt("Enter your study day (Monday-Sunday): ");
+}
+
+switch (studyDay) {
+  case "Monday":
+    studyPlan = `Study for ${(dailyStudyHours * 60).toFixed(2)} minutes today.`;
+    break;
+  case "Tuesday":
+    studyPlan = "Take a rest day today.";
+    break;
+  case "Wednesday":
+    studyPlan = `Complete your lab for ${(adjustedDailyHours * 60).toFixed(2)} minutes today.`;
+    break;
+  case "Thursday":
+    studyPlan = `Work on applied programming for ${(adjustedDailyHours * 60).toFixed(2)} minutes today.`;
+    break;
+  case "Friday":
+    studyPlan = "Keep today open for other coursework.";
+    break;
+  case "Saturday":
+    studyPlan = "Keep today open for other activities.";
+    break;
+  case "Sunday":
+    studyPlan = "Review your week or keep today open.";
+    break;
+  case "Complete":
+    studyPlan = "Course Completed!";
+    break;
+  default:
+    studyPlan = "Invalid day. Enter a day from Monday through Sunday.";
+    break;
+}
+
+display("Study Day", studyDay);
+display("Study Plan", studyPlan);
