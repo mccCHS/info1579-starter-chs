@@ -19,22 +19,25 @@ const display = (label, value) =>
 
 // TODO: Create variables for your name (string), total number of modules for our class (number), and if you're enrolled (boolean)
 const myName = "Caden";
-const totalModules = 10;
-const isEnrolled = false;
+const isEnrolled = true;
 const courseModules = ["Module 1", "Module 2", "Module 3", "Module 4", "Module 5", "Module 6", "Module 7", "Module 8", "Module 9", "Module 10"];
-const completedModules = prompt("Enter the number of completed modules (1-10): ");
-const completedModuleCount = Number(completedModules);
+const completedModules = ["Module 1", "Module 2", "Module 3"];
+const totalModules = courseModules.length;
+const completedModuleCount = completedModules.length;
 const validEntry = Number.isInteger(completedModuleCount) && completedModuleCount >= 1 && completedModuleCount <= totalModules;
-
+function calculatePercentComplete(completedModuleCount, totalModules) {
+  return (completedModuleCount / totalModules) * 100;
+}
 
 
 // TODO: Use a template literal to output a welcome message. Use at least one ${}.
-display(`Welcome, ${myName}!`);
+
 
 // TODO: Calculate the total study hours for the course. There are 10 modules. Each module takes roughly 6 hours.
 // Formula: totalStudyHours = totalModules * hoursPerWeek
-const totalStudyHour = totalModules * 6;
-
+// const totalStudyHour = totalModules * 6;
+function calculateTotalStudyHours(totalModules, hoursPerModule) { return
+  totalModules * hoursPerModule };
 // TODO: Calculate the number of study hours each day. Convert the output to minutes (this formula is not provided).
 // Formula: dailyStudyHours = hoursPerWeek / 7
 const dailyStudyHours = totalStudyHour / 70;
@@ -44,7 +47,7 @@ const adjustedDailyHours = totalStudyHour / 60;
 
 // TODO: Calculate the course percent complete and the course percent remaining. Imagine you've completed 2 modules (Start Here and Module 1).
 // Formula: percent = (part / whole) * 100
-const percentComplete = (completedModuleCount / totalModules) * 100;
+const percentComplete = calculatePercentComplete(completedModuleCount, courseModules.length);
 const percentRemaining = 100 - percentComplete;
 let courseGrade;
 
