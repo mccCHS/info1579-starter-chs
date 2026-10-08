@@ -21,7 +21,7 @@ const display = (label, value) =>
 const myName = "Caden";
 const isEnrolled = true;
 const courseModules = ["Module 1", "Module 2", "Module 3", "Module 4", "Module 5", "Module 6", "Module 7", "Module 8", "Module 9", "Module 10"];
-const completedModules = ["Module 1", "Module 2", "Module 3"];
+//const completedModules = ["Module 1", "Module 2", "Module 3"];
 const totalModules = courseModules.length;
 const completedModuleCount = completedModules.length;
 const validEntry = Number.isInteger(completedModuleCount) && completedModuleCount >= 1 && completedModuleCount <= totalModules;
@@ -78,33 +78,33 @@ const getCourseProgress = function (percentRemaining) {
 };
 
 // DISPLAY RESULTS
-display("Welcome Message", `Welcome, ${myName}!`);
-display("My Name", myName);
-display("Enrolled", isEnrolled);
-display("Total Modules", totalModules);
-display("Daily Study Hours (7 days)", dailyStudyHours.toFixed(2));
-display("Daily Study Minutes (7 days)", `${(dailyStudyHours * 60).toFixed(2)} minutes`);
-display("Daily Study Hours (with rest day)", adjustedDailyHours.toFixed(2));
-display("Percent Complete", `${percentComplete.toFixed(2)}%`);
-display("Percent Remaining", `${percentRemaining.toFixed(2)}%`);
-display("Course Progress", validEntry ? getCourseProgress(percentRemaining) : "Invalid entry.");
-display("Course Grade", getCourseGrade(percentComplete));
+//display("Welcome Message", `Welcome, ${myName}!`);
+//display("My Name", myName);
+//display("Enrolled", isEnrolled);
+//display("Total Modules", totalModules);
+//display("Daily Study Hours (7 days)", dailyStudyHours.toFixed(2));
+//display("Daily Study Minutes (7 days)", `${(dailyStudyHours * 60).toFixed(2)} minutes`);
+//display("Daily Study Hours (with rest day)", adjustedDailyHours.toFixed(2));
+//display("Percent Complete", `${percentComplete.toFixed(2)}%`);
+//display("Percent Remaining", `${percentRemaining.toFixed(2)}%`);
+//display("Course Progress", validEntry ? getCourseProgress(percentRemaining) : "Invalid entry.");
+//display("Course Grade", getCourseGrade(percentComplete));
 
-const displayModules = (modules) => {
-  for (let i = 0; i < modules.length; i++) {
-    display(`${i + 1}`, modules[i]);
-  }
-};
+//const displayModules = (modules) => {
+//  for (let i = 0; i < modules.length; i++) {
+//    display(`${i + 1}`, modules[i]);
+//  }
+//};
 
-displayModules(courseModules);
+//displayModules(courseModules);
 
-const displayCompletedModules = (modules) => {
-  for (let i = 0; i < modules.length; i++) {
-    display(`Completed ${i + 1}`, modules[i]);
-  }
-};
+//const displayCompletedModules = (modules) => {
+//  for (let i = 0; i < modules.length; i++) {
+//    display(`Completed ${i + 1}`, modules[i]);
+//  }
+//};
 
-displayCompletedModules(completedModules);
+//displayCompletedModules(completedModules);
 
 let studyDay;
 
