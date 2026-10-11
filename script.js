@@ -17,39 +17,22 @@ const display = (label, value) =>
 
 // ADD YOUR CODE BELOW
 
+const studentNameInput = document.getElementById("studentName");
+const completedModulesInput = document.getElementById("completedModules");
+const studyDayInput = document.getElementById("studyDay");
+const generateButton = document.getElementById("generateButton");
+const resetButton = document.getElementById("resetButton");
+const output = document.getElementById("output");
+
 // TODO: Create variables for your name (string), total number of modules for our class (number), and if you're enrolled (boolean)
 const myName = "Caden";
 const isEnrolled = true;
 const courseModules = ["Module 1", "Module 2", "Module 3", "Module 4", "Module 5", "Module 6", "Module 7", "Module 8", "Module 9", "Module 10"];
-//const completedModules = ["Module 1", "Module 2", "Module 3"];
 const totalModules = courseModules.length;
-const completedModuleCount = completedModules.length;
-const validEntry = Number.isInteger(completedModuleCount) && completedModuleCount >= 1 && completedModuleCount <= totalModules;
 function calculatePercentComplete(completedModuleCount, totalModules) {
   return (completedModuleCount / totalModules) * 100;
 }
 const hoursPerModule = 6;
-
-// TODO: Use a template literal to output a welcome message. Use at least one ${}.
-
-
-// TODO: Calculate the total study hours for the course. There are 10 modules. Each module takes roughly 6 hours.
-// Formula: totalStudyHours = totalModules * hoursPerWeek
- const totalStudyHour = calculateTotalStudyHours(totalModules, hoursPerModule);
-function calculateTotalStudyHours(totalModules, hoursPerModule) { return(  totalModules * hoursPerModule) };
-
-
-// TODO: Calculate the number of study hours each day. Convert the output to minutes (this formula is not provided).
-// Formula: dailyStudyHours = hoursPerWeek / 7
-const dailyStudyHours = totalStudyHour / 70;
-
-// TODO: Give yourself a rest day and exclude one day out of your week. Calculate the new number of hours and set it to adjustedDailyHours. Convert the output to minutes (this formula is not provided).
-const adjustedDailyHours = totalStudyHour / 60;
-
-// TODO: Calculate the course percent complete and the course percent remaining. Imagine you've completed 2 modules (Start Here and Module 1).
-// Formula: percent = (part / whole) * 100
-const percentComplete = calculatePercentComplete(completedModuleCount, courseModules.length);
-const percentRemaining = 100 - percentComplete;
 
 const getCourseGrade = (percentComplete) => {
   if (percentComplete >= 90) {
@@ -77,78 +60,121 @@ const getCourseProgress = function (percentRemaining) {
   }
 };
 
-// DISPLAY RESULTS
-//display("Welcome Message", `Welcome, ${myName}!`);
-//display("My Name", myName);
-//display("Enrolled", isEnrolled);
-//display("Total Modules", totalModules);
-//display("Daily Study Hours (7 days)", dailyStudyHours.toFixed(2));
-//display("Daily Study Minutes (7 days)", `${(dailyStudyHours * 60).toFixed(2)} minutes`);
-//display("Daily Study Hours (with rest day)", adjustedDailyHours.toFixed(2));
-//display("Percent Complete", `${percentComplete.toFixed(2)}%`);
-//display("Percent Remaining", `${percentRemaining.toFixed(2)}%`);
-//display("Course Progress", validEntry ? getCourseProgress(percentRemaining) : "Invalid entry.");
-//display("Course Grade", getCourseGrade(percentComplete));
-
-//const displayModules = (modules) => {
-//  for (let i = 0; i < modules.length; i++) {
-//    display(`${i + 1}`, modules[i]);
-//  }
-//};
-
-//displayModules(courseModules);
-
-//const displayCompletedModules = (modules) => {
-//  for (let i = 0; i < modules.length; i++) {
-//    display(`Completed ${i + 1}`, modules[i]);
-//  }
-//};
-
-//displayCompletedModules(completedModules);
-
-let studyDay;
-
-if (validEntry && completedModuleCount === totalModules) {
-  studyDay = "Complete";
-} else {
-  studyDay = prompt("Enter your study day (Monday-Sunday): ");
-}
-
-const getStudyPlan = (studyDay) => {
-  let studyPlan;
-
-  switch (studyDay) {
-    case "Monday":
-      studyPlan = `Study for ${(dailyStudyHours * 60).toFixed(2)} minutes today.`;
-      break;
-    case "Tuesday":
-      studyPlan = "Take a rest day today.";
-      break;
-    case "Wednesday":
-      studyPlan = `Complete your lab for ${(adjustedDailyHours * 60).toFixed(2)} minutes today.`;
-      break;
-    case "Thursday":
-      studyPlan = `Work on applied programming for ${(adjustedDailyHours * 60).toFixed(2)} minutes today.`;
-      break;
-    case "Friday":
-      studyPlan = "Keep today open for other coursework.";
-      break;
-    case "Saturday":
-      studyPlan = "Keep today open for other activities.";
-      break;
-    case "Sunday":
-      studyPlan = "Review your week or keep today open.";
-      break;
-    case "Complete":
-      studyPlan = "Course Completed!";
-      break;
-    default:
-      studyPlan = "Invalid day. Enter a day from Monday through Sunday.";
-      break;
+const displayModules = (modules) => {
+  const list = document.createElement("ul");
+  for (let i = 0; i < modules.length; i++) {
+    const listItem = document.createElement("li");
+    listItem.textContent = modules[i];
+    list.appendChild(listItem);
   }
-
-  return studyPlan;
+  return list;
 };
 
-display("Study Day", studyDay);
-display("Study Plan", getStudyPlan(studyDay));
+const displayRemainingModules = (completedModules) => {
+  const remainingModules = courseModules.slice(completedModules);
+  const remainingModulesList = document.getElementById("remainingModulesList");
+  remainingModulesList.replaceChildren();
+  remainingModulesList.appendChild(displayModules(remainingModules));
+};
+
+const generateDashboard = () => {
+  const studentName = studentNameInput.value;
+  const completedModules = Number(completedModulesInput.value);
+  const studyDay = studyDayInput.value;
+  const totalStudyHours = totalModules * hoursPerModule;
+  const percentComplete = calculatePercentComplete(completedModules, totalModules);
+  const percentRemaining = 100 - percentComplete;
+  const dailyStudyHours = totalStudyHours / 70;
+  const dailyStudyMinutes = dailyStudyHours * 60;
+  const adjustedDailyHours = totalStudyHours / 60;
+  const grade = getCourseGrade(percentComplete);
+  const progress = getCourseProgress(percentRemaining);
+
+  const getStudyPlan = (day) => {
+    switch (day) {
+      case "Monday":
+        return `Study for ${dailyStudyMinutes.toFixed(2)} minutes today.`;
+      case "Tuesday":
+        return "Take a rest day today.";
+      case "Wednesday":
+        return `Complete your lab for ${(adjustedDailyHours * 60).toFixed(2)} minutes today.`;
+      case "Thursday":
+        return `Work on applied programming for ${(adjustedDailyHours * 60).toFixed(2)} minutes today.`;
+      case "Friday":
+        return "Keep today open for other coursework.";
+      case "Saturday":
+        return "Keep today open for other activities.";
+      case "Sunday":
+        return "Review your week or keep today open.";
+      default:
+        return "Invalid day. Enter a day from Monday through Sunday.";
+    }
+  };
+
+  const studyPlan = getStudyPlan(studyDay);
+  displayDashboard(
+    studentName,
+    courseModules,
+    completedModules,
+    totalStudyHours,
+    percentComplete,
+    percentRemaining,
+    grade,
+    progress,
+    studyDay,
+    studyPlan,
+  );
+  displayRemainingModules(completedModules);
+  applyDashboardColor(percentComplete);
+};
+
+const displayDashboard = (
+  studentName,
+  courseModules,
+  completedModules,
+  totalStudyHours,
+  percentComplete,
+  percentRemaining,
+  grade,
+  progress,
+  studyDay,
+  studyPlan,
+) => {
+  output.innerHTML = `
+    <div class="dashboard-card">
+      <h2>My Study Dashboard</h2>
+      <p><strong>Name:</strong> ${studentName}</p>
+      <p><strong>Total Modules:</strong> ${courseModules.length}</p>
+      <p><strong>Completed Modules:</strong> ${completedModules}</p>
+      <p><strong>Total Study Hours:</strong> ${totalStudyHours}</p>
+      <p><strong>Percent Complete:</strong> ${percentComplete.toFixed(0)}%</p>
+      <p><strong>Percent Remaining:</strong> ${percentRemaining.toFixed(0)}%</p>
+      <p><strong>Current Grade:</strong> ${grade}</p>
+      <p><strong>Progress Status:</strong> ${progress}</p>
+      <p><strong>Study Day:</strong> ${studyDay}</p>
+      <p><strong>Today's Plan:</strong> ${studyPlan}</p>
+      <p><strong>Remaining Modules</strong></p>
+      <div id="remainingModulesList"></div>
+    </div>`;
+};
+
+const applyDashboardColor = (percentComplete) => {
+  if (percentComplete >= 75) {
+    output.style.backgroundColor = "#d4edda";
+  } else if (percentComplete >= 25) {
+    output.style.backgroundColor = "#fff3cd";
+  } else {
+    output.style.backgroundColor = "#f8d7da";
+  }
+};
+
+const resetDashboard = () => {
+  studentNameInput.value = "";
+  completedModulesInput.value = 0;
+  studyDayInput.value = "";
+  output.innerHTML = "";
+  output.style.backgroundColor = "";
+};
+
+generateButton.addEventListener("click", generateDashboard);
+resetButton.addEventListener("click", resetDashboard);
