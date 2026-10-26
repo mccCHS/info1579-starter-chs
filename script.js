@@ -23,6 +23,30 @@ const studyDayInput = document.getElementById("studyDay");
 const generateButton = document.getElementById("generateButton");
 const resetButton = document.getElementById("resetButton");
 const output = document.getElementById("output");
+const jokeContainer = document.getElementById("jokeContainer");
+
+const getJoke = async () => {
+  const response = await fetch("https://official-joke-api.appspot.com/random_joke");
+  if (!response.ok) {
+    throw new Error(`Unable to fetch joke: ${response.status}`);
+  }
+  return await response.json();
+};
+
+const displayJoke = async () => {
+  try {
+    jokeContainer.textContent = "Loading joke...";
+    const joke = await getJoke();
+    const setup = document.createElement("p");
+    const punchline = document.createElement("p");
+    setup.textContent = joke.setup;
+    punchline.textContent = joke.punchline;
+    jokeContainer.replaceChildren(setup, punchline);
+  } catch (error) {
+    console.error(error);
+    jokeContainer.textContent = "Unable to load joke.";
+  }
+};
 
 // TODO: Create variables for your name (string), total number of modules for our class (number), and if you're enrolled (boolean)
 const myName = "Caden";
@@ -252,3 +276,5 @@ const runUnitTests = () => {
   console.assert(getCourseProgress(100) === "Current Progress: Just Getting Started", "Starting progress test failed");
   console.log("Unit tests ran: 30 assertions. Any failures are listed above.");
 };
+
+displayJoke();
