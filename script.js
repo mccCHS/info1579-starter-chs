@@ -51,7 +51,18 @@ const displayJoke = async () => {
 // TODO: Create variables for your name (string), total number of modules for our class (number), and if you're enrolled (boolean)
 const myName = "Caden";
 const isEnrolled = true;
-const courseModules = ["Module 1", "Module 2", "Module 3", "Module 4", "Module 5", "Module 6", "Module 7", "Module 8", "Module 9", "Module 10"];
+const courseModules = [
+    { moduleName: "Module 1", hoursRequired: 6, topic: "JavaScript fundamentals" },
+    { moduleName: "Module 2", hoursRequired: 6, topic: "Conditionals, arrays" },
+    { moduleName: "Module 3", hoursRequired: 8, topic: "Functions, scope, loops" },
+    { moduleName: "Module 4", hoursRequired: 5, topic: "DOM" },
+    { moduleName: "Module 5", hoursRequired: 5, topic: "Debugging, error handling" },
+    { moduleName: "Module 6", hoursRequired: 6, topic: "APIs" },
+    { moduleName: "Module 7", hoursRequired: 7, topic: "Objects, iterators" },
+    { moduleName: "Module 8", hoursRequired: 6, topic: "Modular JS, code organization, final project planning" },
+    { moduleName: "Module 9", hoursRequired: 7, topic: "Modern tools, final project development" },
+    { moduleName: "Module 10", hoursRequired: 10, topic: "Final project, deployment" }
+];
 const totalModules = courseModules.length;
 function calculatePercentComplete(completedModuleCount, totalModules) {
   return (completedModuleCount / totalModules) * 100;
@@ -88,17 +99,15 @@ const displayModules = (modules) => {
   const list = document.createElement("ul");
   for (let i = 0; i < modules.length; i++) {
     const listItem = document.createElement("li");
-    listItem.textContent = modules[i];
+    listItem.textContent = modules[i].moduleName;
     list.appendChild(listItem);
   }
   return list;
 };
 
-const displayRemainingModules = (completedModules) => {
-  const remainingModules = courseModules.slice(completedModules);
+const displayRemainingModules = (remainingModules) => {
   const remainingModulesList = document.getElementById("remainingModulesList");
-  remainingModulesList.replaceChildren();
-  remainingModulesList.appendChild(displayModules(remainingModules));
+  remainingModulesList.replaceChildren(displayModules(remainingModules));
 };
 
 const validateInputs = (studentName, completedModules, studyDay) => {
@@ -121,12 +130,22 @@ const validateInputs = (studentName, completedModules, studyDay) => {
 
 const generateDashboard = () => {
   try {
+    const moduleNames = courseModules.map((module) => module.moduleName);
+    const completedModules = Number(completedModulesInput.value);
+    const remainingModules = courseModules.filter(
+      (_, index) => index >= completedModules,
+    );
+    const remainingHours = remainingModules.reduce(
+      (totalHours, module) => totalHours + module.hoursRequired,
+      0,
+    );
+
     runUnitTests();
     const studentName = studentNameInput.value;
-    const completedModules = Number(completedModulesInput.value);
     console.log("Student Name:,", studentName);
     console.log("Completed Modules:", completedModules);
     console.log("Study Day:", studyDayInput.value);
+    console.log("Module Names:", moduleNames);
     console.log("percentComplete:", calculatePercentComplete(completedModules, totalModules));
     console.log("progress:", getCourseProgress(100 - calculatePercentComplete(completedModules, totalModules)));
     const studyDay = studyDayInput.value;
@@ -167,6 +186,7 @@ const generateDashboard = () => {
       courseModules,
       completedModules,
       totalStudyHours,
+      remainingHours,
       percentComplete,
       percentRemaining,
       grade,
@@ -174,7 +194,7 @@ const generateDashboard = () => {
       studyDay,
       studyPlan,
     );
-    displayRemainingModules(completedModules);
+    displayRemainingModules(remainingModules);
     applyDashboardColor(percentComplete);
   } catch (error) {
     console.error(error);
@@ -192,6 +212,7 @@ const displayDashboard = (
   courseModules,
   completedModules,
   totalStudyHours,
+  remainingHours,
   percentComplete,
   percentRemaining,
   grade,
@@ -206,6 +227,7 @@ const displayDashboard = (
       <p><strong>Total Modules:</strong> ${courseModules.length}</p>
       <p><strong>Completed Modules:</strong> ${completedModules}</p>
       <p><strong>Total Study Hours:</strong> ${totalStudyHours}</p>
+      <p><strong>Remaining Study Hours:</strong> ${remainingHours}</p>
       <p><strong>Percent Complete:</strong> ${percentComplete.toFixed(0)}%</p>
       <p><strong>Percent Remaining:</strong> ${percentRemaining.toFixed(0)}%</p>
       <p><strong>Current Grade:</strong> ${grade}</p>
