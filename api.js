@@ -1,6 +1,6 @@
 /*
     Name: Caden
-    Assignment: Module 7 Applied Programming Activity
+ 
 */
 "use strict";
 

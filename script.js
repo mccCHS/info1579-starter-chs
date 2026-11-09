@@ -1,9 +1,7 @@
 /*
     Name: Caden
     Date: 2026-9-14
-    Assignment: Module 7 Applied Programming Activity
-    Quarter: 1
-    Instructor:
+    
 */
 "use strict";
 
