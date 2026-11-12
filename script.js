@@ -48,7 +48,10 @@ const generateDashboard = () => {
       0,
     );
     const totalStudyHours = calculateStudyHours(totalModules, hoursPerModule);
-    const percentComplete = calculatePercentComplete(completedModules, totalModules);
+    const percentComplete = calculatePercentComplete(
+      completedModules,
+      totalModules,
+    );
     const percentRemaining = 100 - percentComplete;
     const grade = getCourseGrade(percentComplete);
     const progress = getCourseProgress(percentRemaining);
@@ -83,7 +86,12 @@ const generateDashboard = () => {
 
 generateButton.addEventListener("click", generateDashboard);
 resetButton.addEventListener("click", () =>
-  resetDashboard(studentNameInput, completedModulesInput, studyDayInput, output),
+  resetDashboard(
+    studentNameInput,
+    completedModulesInput,
+    studyDayInput,
+    output,
+  ),
 );
 
 displayJoke();

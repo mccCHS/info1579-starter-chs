@@ -59,10 +59,25 @@ export const runUnitTests = () => {
   console.assert(getCourseGrade(59) === "F", "F grade test 4 failed");
   console.assert(getCourseGrade(59.99) === "F", "F grade test 5 failed");
 
-  console.assert(calculatePercentComplete(0, 10) === 0, "Zero completion test failed");
-  console.assert(calculatePercentComplete(5, 10) === 50, "Half completion test failed");
-  console.assert(calculatePercentComplete(10, 10) === 100, "Full completion test failed");
-  console.assert(getCourseProgress(0) === "Current Progress: Finished!", "Finished progress test failed");
-  console.assert(getCourseProgress(100) === "Current Progress: Just Getting Started", "Starting progress test failed");
+  console.assert(
+    calculatePercentComplete(0, 10) === 0,
+    "Zero completion test failed",
+  );
+  console.assert(
+    calculatePercentComplete(5, 10) === 50,
+    "Half completion test failed",
+  );
+  console.assert(
+    calculatePercentComplete(10, 10) === 100,
+    "Full completion test failed",
+  );
+  console.assert(
+    getCourseProgress(0) === "Current Progress: Finished!",
+    "Finished progress test failed",
+  );
+  console.assert(
+    getCourseProgress(100) === "Current Progress: Just Getting Started",
+    "Starting progress test failed",
+  );
   console.log("Unit tests ran: 30 assertions. Any failures are listed above.");
 };
