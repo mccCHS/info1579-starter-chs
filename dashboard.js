@@ -66,11 +66,19 @@ export const resetDashboard = (
   studentNameInput,
   completedModulesInput,
   studyDayInput,
+  careerInput,
   output,
 ) => {
+  if (output === undefined) {
+    output = careerInput;
+    careerInput = null;
+  }
   studentNameInput.value = "";
   completedModulesInput.value = 0;
   studyDayInput.value = "";
+  if (careerInput) {
+    careerInput.value = "";
+  }
   output.innerHTML = "";
   output.style.backgroundColor = "";
 };

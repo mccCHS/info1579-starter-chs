@@ -10,7 +10,12 @@ import {
   getCourseProgress,
 } from "./calculations.js";
 
-export const validateInput = (studentName, completedModules, studyDay) => {
+export const validateInput = (
+  studentName,
+  completedModules,
+  studyDay,
+  careerName = null,
+) => {
   const errors = [];
 
   if (studentName.trim() === "") {
@@ -21,6 +26,9 @@ export const validateInput = (studentName, completedModules, studyDay) => {
   }
   if (studyDay === "") {
     errors.push("<li>Please select a study day.</li>");
+  }
+  if (careerName !== null && careerName === "") {
+    errors.push("<li>Please select a career path.</li>");
   }
 
   if (errors.length > 0) {
